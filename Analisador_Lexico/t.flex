@@ -3,10 +3,10 @@ import java.util.*;
 %%
 %class AnalisadoLexico
 %standalone
-%line
 %public
+
 %{
-    Scanner scanner = new Scanner(System.in);
+    static Scanner scanner = new Scanner(System.in);
 
     static int some = 0;
     static int all = 0;
@@ -27,38 +27,15 @@ import java.util.*;
     static int menor_ou_igual = 0;
     static int propriedade_has = 0;
     static int propriedade_is = 0;
+    static int propriedade = 0;
     static int classe = 0;
     static int classeComposta = 0;
     static int classeUnderline = 0;
-    
 
     public static class Compiler {
   
-    // strings resultantes do split() to arquivo txt ou frase escrita pelo usuário
-    public String [] lexemas = null;
-
-    // booleans que indicam se o lexema no índice relativo disparou erro 
-    // TRUE  = disparou erro
-    // FALSE = gerou token válido
-    public boolean    [] indices_dos_erros = null;  
-
-    public Scanner sc = new Scanner(System.in);
-
-    public void ler_frase(){
-        System.out.println("Digite a frase: ");
-        String frase = sc.nextLine();
-        definir_lexemas(frase);
-    }
-
-    //configura o array de palavras
-    public void definir_lexemas(String frase){
-        lexemas = frase.split(" ");
-        indices_dos_erros = new boolean [lexemas.length];
-        Arrays.fill(indices_dos_erros, false); 
-    }
-
     //exibe a quantidade de tokens 
-    public void qnt_tokens(){
+    public static void qnt_tokens(){
         System.out.println("\n--------------------------------------------");
         System.out.println("        TOKEN        |      QUANTIDADE      ");
         System.out.println("--------------------------------------------");
@@ -139,21 +116,24 @@ import java.util.*;
             System.out.println("  PROPRIEDADE (IS)   |           " + propriedade_is);
             System.out.println("--------------------------------------------");
         }
-    }
-
-    //exibe as palavras que dispararam erro
-    public void erros(){
-        System.out.println("\nPALAVRAS INVÁLIDAS: {");
-        
-        for(int i = 0; i < indices_dos_erros.length; i++){
-            if(indices_dos_erros[i]){
-                System.out.println("    " + lexemas[i]);
-            }
+        if(classe > 0){
+            System.out.println("       Classe        |           " + classe);
+            System.out.println("--------------------------------------------");
         }
-        System.out.println("}\n");
+        if(classeComposta > 0){
+            System.out.println("   Classe Composta   |           " + classeComposta);
+            System.out.println("--------------------------------------------");
+        }
+         if(classeUnderline > 0){
+            System.out.println("  Classe Underline   |           " + classeUnderline);
+            System.out.println("--------------------------------------------");
+        }
+        if(propriedade > 0){
+            System.out.println("  Propriedades Total |           " + propriedade);
+            System.out.println("--------------------------------------------");
+        }
     }
 }
-
     
 %}
 
@@ -173,20 +153,27 @@ EspacoBranco    = \r|\n|\r\n
 Classe          = {Letra_maiuscula}{Letra}+
 ClasseComposta  = {Classe}{Classe}+
 ClasseUnderline = {Classe}(_{Classe})+
+has             = (has([A-Z][a-z]+)+)
+is              = (is([A-Z][a-z]+)+(Of))
+erro            = {Classe}+_
+
 %%
 
-{Classe} {System.out.println("> Encontrei um {Classe}"); classe++;}
-{ClasseComposta} {System.out.println("> Encontrei um {ClasseComposta}");classeComposta++;}
-{ClasseUnderline} {System.out.println("> Encontrei um {ClasseUnderline}"); classeUnderline++;}
-{Numero} {System.out.println("> Encontrei um {numero}"); num++;}
-{Abre_par} {System.out.println("> Encontrei um {abre parent}");}
-{Fecha_par} {System.out.println("> Encontrei um {fecha parent}");}
-{Maior} {System.out.println("> Encontrei um {maior q}");}
-{Menor} {System.out.println("> Encontrei um {menor q}");}
-{Maior_ou_igual} {System.out.println("> Encontrei um {maior ou igual}");}
-{Menor_ou_igual} {System.out.println("> Encontrei um {menor ou igual}");}
+{ClasseComposta} {System.out.println("> Encontrei uma {Classe Composta}");classeComposta++;}
+{ClasseUnderline} {System.out.println("> Encontrei uma {Classe Underline}"); classeUnderline++;}
+{Classe} {System.out.println("> Encontrei uma {Classe}"); classe++;}
+{erro} {System.out.println("> Encontrei uma {erro classe}");}
+{has} {System.out.println("> Encontrei uma {Id has}");propriedade++;propriedade_has++;}
+{is} {System.out.println("> Encontrei uma {Id is}");propriedade++;propriedade_is++;}
+{Numero} {System.out.println("> Encontrei um {Numero}"); num++;}
+{Abre_par} {System.out.println("> Encontrei um {Abre parentese}"); abre_par++;}
+{Fecha_par} {System.out.println("> Encontrei um {Fecha parentese}");fecha_par++;}
+{Maior} {System.out.println("> Encontrei um {Maior q}");maior++;}
+{Menor} {System.out.println("> Encontrei um {Menor q}");menor++;}
+{Maior_ou_igual} {System.out.println("> Encontrei um {Maior ou igual}");maior_ou_igual++;}
+{Menor_ou_igual} {System.out.println("> Encontrei um {Menor ou igual}");menor_ou_igual++;}
 {EspacoBranco} { }
-. { System.out.println("erro: " + yytext());}
+. { }
 
 "some" {some++;}
 "all" {all++;}
@@ -198,5 +185,3 @@ ClasseUnderline = {Classe}(_{Classe})+
 "not" {not++;}
 "and" {and++;}
 "or" {or++;}
-
-//{Compiler comp = new Compiler();}

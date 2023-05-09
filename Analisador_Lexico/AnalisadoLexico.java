@@ -5,7 +5,6 @@
 import java.util.*;
 
 
-
 @SuppressWarnings("fallthrough")
 public class AnalisadoLexico {
 
@@ -63,11 +62,12 @@ public class AnalisadoLexico {
 
   private static final String ZZ_CMAP_BLOCKS_PACKED_0 =
     "\12\0\1\1\2\2\1\3\32\0\1\4\1\5\6\0"+
-    "\12\6\2\0\1\7\1\10\1\11\2\0\32\12\4\0"+
-    "\1\13\1\0\1\14\1\15\1\16\1\17\1\20\2\15"+
-    "\1\21\1\22\2\15\1\23\1\24\1\25\1\26\2\15"+
-    "\1\27\1\30\1\31\1\32\1\33\1\15\1\34\1\35"+
-    "\1\15\12\0\1\2\u01a2\0\2\2\326\0\u0100\2";
+    "\12\6\2\0\1\7\1\10\1\11\2\0\16\12\1\13"+
+    "\13\12\4\0\1\14\1\0\1\15\1\16\1\17\1\20"+
+    "\1\21\1\22\1\16\1\23\1\24\2\16\1\25\1\26"+
+    "\1\27\1\30\2\16\1\31\1\32\1\33\1\34\1\35"+
+    "\1\16\1\36\1\37\1\16\12\0\1\2\u01a2\0\2\2"+
+    "\326\0\u0100\2";
 
   private static int [] zzUnpackcmap_blocks() {
     int [] result = new int[1024];
@@ -94,14 +94,14 @@ public class AnalisadoLexico {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\1\0\1\1\1\2\1\3\1\2\1\4\1\5\1\6"+
-    "\1\7\1\10\11\1\1\11\1\12\1\13\6\0\1\14"+
-    "\5\0\1\15\1\16\1\0\1\17\1\20\1\21\3\0"+
-    "\1\22\2\0\1\23\1\24\1\0\1\25\1\0\1\26"+
-    "\1\0\1\27";
+    "\1\0\1\1\1\2\1\1\1\3\1\4\1\5\1\6"+
+    "\1\7\13\1\1\10\1\11\1\12\10\0\1\13\4\0"+
+    "\1\14\1\15\1\16\3\0\1\17\1\20\1\21\3\0"+
+    "\1\22\4\0\1\23\1\24\1\0\1\14\1\25\1\0"+
+    "\1\26\1\0\1\27\2\0\1\30\1\31";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[54];
+    int [] result = new int[66];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -126,16 +126,18 @@ public class AnalisadoLexico {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\36\0\36\0\36\0\74\0\36\0\36\0\132"+
-    "\0\170\0\226\0\264\0\322\0\360\0\u010e\0\u012c\0\u014a"+
-    "\0\u0168\0\u0186\0\u01a4\0\36\0\36\0\u01c2\0\u01e0\0\u01fe"+
-    "\0\u021c\0\u023a\0\u0258\0\u0276\0\36\0\u0294\0\u02b2\0\u02d0"+
-    "\0\u02ee\0\u030c\0\36\0\36\0\u032a\0\36\0\36\0\36"+
-    "\0\u0348\0\u0366\0\u0384\0\u03a2\0\u03c0\0\u03de\0\36\0\36"+
-    "\0\u03fc\0\u041a\0\u0438\0\36\0\u0456\0\36";
+    "\0\0\0\40\0\40\0\100\0\40\0\40\0\140\0\200"+
+    "\0\240\0\300\0\340\0\u0100\0\u0120\0\u0140\0\u0160\0\u0180"+
+    "\0\u01a0\0\u01c0\0\u01e0\0\u0200\0\40\0\40\0\u0220\0\u0240"+
+    "\0\u0260\0\u0280\0\u02a0\0\u02c0\0\u02e0\0\u0300\0\u0320\0\40"+
+    "\0\u0340\0\u0360\0\u0380\0\u03a0\0\u03c0\0\40\0\40\0\u03e0"+
+    "\0\u0400\0\u0420\0\40\0\40\0\40\0\u0440\0\u0460\0\u0480"+
+    "\0\u04a0\0\u04c0\0\u04e0\0\u0500\0\u0520\0\40\0\40\0\u0540"+
+    "\0\40\0\u0560\0\u0580\0\u05a0\0\u05c0\0\40\0\u03c0\0\u05e0"+
+    "\0\u0520\0\40";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[54];
+    int [] result = new int[66];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -158,23 +160,26 @@ public class AnalisadoLexico {
   private static final int [] ZZ_TRANS = zzUnpacktrans();
 
   private static final String ZZ_TRANS_PACKED_0 =
-    "\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11"+
-    "\1\2\1\12\1\13\1\2\1\14\3\2\1\15\3\2"+
-    "\1\16\1\17\1\20\1\2\1\21\1\22\1\2\1\23"+
-    "\2\2\37\0\1\3\42\0\1\10\37\0\1\24\35\0"+
-    "\1\25\41\0\22\26\23\0\1\27\1\0\1\30\44\0"+
-    "\1\31\15\0\1\32\5\0\1\33\41\0\1\34\36\0"+
-    "\1\35\34\0\1\36\30\0\1\37\30\0\1\40\33\0"+
-    "\1\41\1\42\22\26\23\0\1\43\31\0\1\44\32\0"+
-    "\1\45\55\0\1\46\26\0\1\47\41\0\1\50\30\0"+
-    "\1\51\25\0\1\52\44\0\1\53\26\0\22\54\12\0"+
-    "\1\55\41\0\1\56\37\0\1\57\46\0\1\60\36\0"+
-    "\1\61\15\0\1\41\1\0\22\54\14\0\22\62\31\0"+
-    "\1\63\24\0\1\64\30\0\1\42\22\62\23\0\1\65"+
-    "\47\0\1\66";
+    "\2\2\1\3\1\4\1\5\1\6\1\7\1\10\1\2"+
+    "\1\11\2\12\1\2\1\13\3\2\1\14\1\2\1\15"+
+    "\1\16\1\2\1\17\1\20\1\21\1\2\1\22\1\23"+
+    "\1\2\1\24\2\2\41\0\1\2\44\0\1\7\41\0"+
+    "\1\25\37\0\1\26\44\0\23\27\25\0\1\30\1\0"+
+    "\1\31\46\0\1\32\16\0\1\33\54\0\1\34\22\0"+
+    "\1\35\6\0\1\36\43\0\1\37\40\0\1\40\36\0"+
+    "\1\41\32\0\1\42\31\0\1\43\34\0\2\44\1\45"+
+    "\23\27\25\0\1\46\32\0\1\47\34\0\1\50\54\0"+
+    "\1\51\17\0\2\52\62\0\1\53\30\0\1\54\43\0"+
+    "\1\55\32\0\1\56\26\0\1\57\47\0\1\60\27\0"+
+    "\23\61\12\0\2\62\43\0\1\63\32\0\2\64\41\0"+
+    "\23\65\21\0\1\66\51\0\1\67\40\0\1\70\15\0"+
+    "\2\44\1\71\23\61\15\0\23\72\33\0\1\73\21\0"+
+    "\23\74\12\0\1\52\1\75\1\0\23\65\21\0\1\76"+
+    "\32\0\1\77\23\72\25\0\1\100\24\0\2\64\1\0"+
+    "\23\74\15\0\5\65\1\101\15\65\37\0\1\102";
 
   private static int [] zzUnpacktrans() {
-    int [] result = new int[1140];
+    int [] result = new int[1536];
     int offset = 0;
     offset = zzUnpacktrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -217,12 +222,13 @@ public class AnalisadoLexico {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\1\0\3\11\1\1\2\11\14\1\2\11\1\1\6\0"+
-    "\1\11\5\0\2\11\1\0\3\11\3\0\1\1\2\0"+
-    "\2\11\1\0\1\1\1\0\1\11\1\0\1\11";
+    "\1\0\2\11\1\1\2\11\16\1\2\11\1\1\10\0"+
+    "\1\11\4\0\1\1\2\11\3\0\3\11\3\0\1\1"+
+    "\4\0\2\11\1\0\1\11\1\1\1\0\1\1\1\0"+
+    "\1\11\2\0\1\1\1\11";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[54];
+    int [] result = new int[66];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -282,6 +288,7 @@ public class AnalisadoLexico {
   private int zzFinalHighSurrogate = 0;
 
   /** Number of newlines encountered up to the start of the matched text. */
+  @SuppressWarnings("unused")
   private int yyline;
 
   /** Number of characters from the last newline up to the start of the matched text. */
@@ -301,7 +308,7 @@ public class AnalisadoLexico {
   private boolean zzEOFDone;
 
   /* user code: */
-    Scanner scanner = new Scanner(System.in);
+    static Scanner scanner = new Scanner(System.in);
 
     static int some = 0;
     static int all = 0;
@@ -322,38 +329,15 @@ public class AnalisadoLexico {
     static int menor_ou_igual = 0;
     static int propriedade_has = 0;
     static int propriedade_is = 0;
+    static int propriedade = 0;
     static int classe = 0;
     static int classeComposta = 0;
     static int classeUnderline = 0;
-    
 
     public static class Compiler {
   
-    // strings resultantes do split() to arquivo txt ou frase escrita pelo usuário
-    public String [] lexemas = null;
-
-    // booleans que indicam se o lexema no índice relativo disparou erro 
-    // TRUE  = disparou erro
-    // FALSE = gerou token válido
-    public boolean    [] indices_dos_erros = null;  
-
-    public Scanner sc = new Scanner(System.in);
-
-    public void ler_frase(){
-        System.out.println("Digite a frase: ");
-        String frase = sc.nextLine();
-        definir_lexemas(frase);
-    }
-
-    //configura o array de palavras
-    public void definir_lexemas(String frase){
-        lexemas = frase.split(" ");
-        indices_dos_erros = new boolean [lexemas.length];
-        Arrays.fill(indices_dos_erros, false); 
-    }
-
     //exibe a quantidade de tokens 
-    public void qnt_tokens(){
+    public static void qnt_tokens(){
         System.out.println("\n--------------------------------------------");
         System.out.println("        TOKEN        |      QUANTIDADE      ");
         System.out.println("--------------------------------------------");
@@ -434,21 +418,24 @@ public class AnalisadoLexico {
             System.out.println("  PROPRIEDADE (IS)   |           " + propriedade_is);
             System.out.println("--------------------------------------------");
         }
-    }
-
-    //exibe as palavras que dispararam erro
-    public void erros(){
-        System.out.println("\nPALAVRAS INV�?LIDAS: {");
-        
-        for(int i = 0; i < indices_dos_erros.length; i++){
-            if(indices_dos_erros[i]){
-                System.out.println("    " + lexemas[i]);
-            }
+        if(classe > 0){
+            System.out.println("       Classe        |           " + classe);
+            System.out.println("--------------------------------------------");
         }
-        System.out.println("}\n");
+        if(classeComposta > 0){
+            System.out.println("   Classe Composta   |           " + classeComposta);
+            System.out.println("--------------------------------------------");
+        }
+         if(classeUnderline > 0){
+            System.out.println("  Classe Underline   |           " + classeUnderline);
+            System.out.println("--------------------------------------------");
+        }
+        if(propriedade > 0){
+            System.out.println("  Propriedades Total |           " + propriedade);
+            System.out.println("--------------------------------------------");
+        }
     }
 }
-
     
 
 
@@ -739,59 +726,6 @@ public class AnalisadoLexico {
     while (true) {
       zzMarkedPosL = zzMarkedPos;
 
-      boolean zzR = false;
-      int zzCh;
-      int zzCharCount;
-      for (zzCurrentPosL = zzStartRead  ;
-           zzCurrentPosL < zzMarkedPosL ;
-           zzCurrentPosL += zzCharCount ) {
-        zzCh = Character.codePointAt(zzBufferL, zzCurrentPosL, zzMarkedPosL);
-        zzCharCount = Character.charCount(zzCh);
-        switch (zzCh) {
-        case '\u000B':  // fall through
-        case '\u000C':  // fall through
-        case '\u0085':  // fall through
-        case '\u2028':  // fall through
-        case '\u2029':
-          yyline++;
-          zzR = false;
-          break;
-        case '\r':
-          yyline++;
-          zzR = true;
-          break;
-        case '\n':
-          if (zzR)
-            zzR = false;
-          else {
-            yyline++;
-          }
-          break;
-        default:
-          zzR = false;
-        }
-      }
-
-      if (zzR) {
-        // peek one character ahead if it is
-        // (if we have counted one line too much)
-        boolean zzPeek;
-        if (zzMarkedPosL < zzEndReadL)
-          zzPeek = zzBufferL[zzMarkedPosL] == '\n';
-        else if (zzAtEOF)
-          zzPeek = false;
-        else {
-          boolean eof = zzRefill();
-          zzEndReadL = zzEndRead;
-          zzMarkedPosL = zzMarkedPos;
-          zzBufferL = zzBuffer;
-          if (eof)
-            zzPeek = false;
-          else
-            zzPeek = zzBufferL[zzMarkedPosL] == '\n';
-        }
-        if (zzPeek) yyline--;
-      }
       zzAction = -1;
 
       zzCurrentPosL = zzCurrentPos = zzStartRead = zzMarkedPosL;
@@ -859,120 +793,130 @@ public class AnalisadoLexico {
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1:
-            { System.out.println("erro: " + yytext());
-            }
-          // fall through
-          case 24: break;
-          case 2:
             { 
             }
           // fall through
-          case 25: break;
-          case 3:
+          case 26: break;
+          case 2:
             { System.out.print(yytext());
             }
           // fall through
-          case 26: break;
-          case 4:
-            { System.out.println("> Encontrei um {abre parent}");
-            }
-          // fall through
           case 27: break;
-          case 5:
-            { System.out.println("> Encontrei um {fecha parent}");
+          case 3:
+            { System.out.println("> Encontrei um {Abre parentese}"); abre_par++;
             }
           // fall through
           case 28: break;
-          case 6:
-            { System.out.println("> Encontrei um {numero}"); num++;
+          case 4:
+            { System.out.println("> Encontrei um {Fecha parentese}");fecha_par++;
             }
           // fall through
           case 29: break;
-          case 7:
-            { System.out.println("> Encontrei um {menor q}");
+          case 5:
+            { System.out.println("> Encontrei um {Numero}"); num++;
             }
           // fall through
           case 30: break;
-          case 8:
-            { System.out.println("> Encontrei um {maior q}");
+          case 6:
+            { System.out.println("> Encontrei um {Menor q}");menor++;
             }
           // fall through
           case 31: break;
-          case 9:
-            { System.out.println("> Encontrei um {menor ou igual}");
+          case 7:
+            { System.out.println("> Encontrei um {Maior q}");maior++;
             }
           // fall through
           case 32: break;
-          case 10:
-            { System.out.println("> Encontrei um {maior ou igual}");
+          case 8:
+            { System.out.println("> Encontrei um {Menor ou igual}");menor_ou_igual++;
             }
           // fall through
           case 33: break;
-          case 11:
-            { System.out.println("> Encontrei um {Classe}"); classe++;
+          case 9:
+            { System.out.println("> Encontrei um {Maior ou igual}");maior_ou_igual++;
             }
           // fall through
           case 34: break;
-          case 12:
-            { or++;
+          case 10:
+            { System.out.println("> Encontrei uma {Classe}"); classe++;
             }
           // fall through
           case 35: break;
+          case 11:
+            { or++;
+            }
+          // fall through
+          case 36: break;
+          case 12:
+            { System.out.println("> Encontrei uma {erro classe}");
+            }
+          // fall through
+          case 37: break;
           case 13:
             { all++;
             }
           // fall through
-          case 36: break;
+          case 38: break;
           case 14:
             { and++;
             }
           // fall through
-          case 37: break;
+          case 39: break;
           case 15:
             { max++;
             }
           // fall through
-          case 38: break;
+          case 40: break;
           case 16:
             { min++;
             }
           // fall through
-          case 39: break;
+          case 41: break;
           case 17:
             { not++;
             }
           // fall through
-          case 40: break;
+          case 42: break;
           case 18:
-            { System.out.println("> Encontrei um {ClasseComposta}");classeComposta++;
+            { System.out.println("> Encontrei uma {Classe Composta}");classeComposta++;
             }
           // fall through
-          case 41: break;
+          case 43: break;
           case 19:
             { some++;
             }
           // fall through
-          case 42: break;
+          case 44: break;
           case 20:
             { that++;
             }
           // fall through
-          case 43: break;
-          case 21:
-            { System.out.println("> Encontrei um {ClasseUnderline}"); classeUnderline++;
-            }
-          // fall through
-          case 44: break;
-          case 22:
-            { value++;
-            }
-          // fall through
           case 45: break;
-          case 23:
-            { exactly++;
+          case 21:
+            { System.out.println("> Encontrei uma {Classe Underline}"); classeUnderline++;
             }
           // fall through
           case 46: break;
+          case 22:
+            { System.out.println("> Encontrei uma {Id has}");propriedade++;propriedade_has++;
+            }
+          // fall through
+          case 47: break;
+          case 23:
+            { value++;
+            }
+          // fall through
+          case 48: break;
+          case 24:
+            { System.out.println("> Encontrei uma {Id is}");propriedade++;propriedade_is++;
+            }
+          // fall through
+          case 49: break;
+          case 25:
+            { exactly++;
+            }
+          // fall through
+          case 50: break;
           default:
             zzScanError(ZZ_NO_MATCH);
         }
