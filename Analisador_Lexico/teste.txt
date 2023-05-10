@@ -1,4 +1,6 @@
-PizzaTopping and
-CheeseTopping that
-hasSpiciness some Mild
-and hasCountryOfOrigin value Italy
+Pizza that 
+hasTopping only CheeseTopping and
+hasTopping_Quantity some integer[<="4"] and
+isGupOf some Medium and
+hasPrice some float[>="45.50"]
+pizza Clsasa_erro
