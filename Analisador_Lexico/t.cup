@@ -110,7 +110,7 @@ final_pri   ::= nome_classe r_pri;
 r_pri       ::= OR nome_classe r_pri
             | empty
 ;
-
+//=============================================================================
 /*
     classe enumerada exemplo
     
