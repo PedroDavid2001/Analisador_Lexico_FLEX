@@ -1,0 +1,155 @@
+import java_cup.runtime.*;
+
+//terminais resgatados do lexer
+terminal SOME, ALL, VALUE, MIN, MAX, EXACTLY, THAT, NOT, AND, OR, ONLY, MAIOR, 
+    MENOR, MAIORIG, MENORIG, ABREPAR, FECHAPAR, ABRECHAVE, FECHACHAVE, VIRGULA,
+    NOVALINHA, HAS, IS, NUMERO, CLASSE, CLASSECOMP, CLASSEUNDER, INT, FLOAT; 
+
+//não terminais
+non terminal String definida, cl_def, desc_def, linha_def, fat_def, final_def, 
+    primitiva, cl_pri, linha_pri, desc_pri, final_pri, r_pri, enumerada, 
+    linha_enu, r_enu, coberta, linha_cob, r_cob, nome_classe;
+
+//=============================================================================
+                        /* REGRAS DA GRAMÁTICA */
+//=============================================================================
+/*
+    classe definida exemplos
+    
+    <!--Descrição da classe CheesyPizza–!>
+    Pizza
+    and (hasTopping SOME CheeseTopping)
+
+    <!--Descrição da classe FourCheesePizza–!>
+    Pizza
+    and (hasTopping EXACTLY 4 CheeseTopping)
+
+    <!--Descrição da classe HighCaloriePizza–!>
+    Pizza
+    and (hasCalorificContent SOME integer[>=400])
+
+    <!--Descrição da classe SpicyPizza–!>
+    Pizza
+    and (hasTopping SOME (PizzaTopping AND (hasSpiciness SOME Hot)))
+
+*/
+definida    ::= nome_classe NOVALINHA cl_def;
+
+//Verifica se há uma ou mais cláusulas (cada linha da definição)
+cl_def      ::= linha_def NOVALINHA cl_def
+            | empty 
+;
+
+//Conteúdo de cada linha
+linha_def   ::= AND ABREPAR fat_def;
+
+//usada para fatoração 
+fat_def     ::= HAS desc_def FECHAPAR
+            | IS desc_def FECHAPAR
+;
+
+//conteúdo após uma propriedade 'has' ou 'is'
+desc_def    ::= SOME final_def
+            | MIN NUMERO final_def
+            | MAX NUMERO final_def
+            | EXACTLY NUMERO final_def
+;
+
+//parte final que pode ser uma classe, valor inteiro/float ou uma nova cadeia com AND 
+final_def   ::= nome_classe
+            | INT
+            | FLOAT
+            | ABREPAR nome_classe linha_def FECHAPAR
+;
+//=============================================================================
+/*
+    classe primitiva exemplos
+
+    <!--Descrição da classe AmericanPizza–!>
+    NamedPizza
+    hasTopping SOME MozzarellaTopping
+    hasTopping SOME PepperoniTopping
+    hasTopping SOME TomatoTopping
+    hasTopping ONLY (MozzarellaTopping OR PepperoniTopping OR TomatoTopping)
+    
+    <!--Descrição da classe MargheritaPizza–!>
+    NamedPizza
+    hasTopping SOME MozzarellaTopping
+    hasTopping SOME TomatoTopping
+    hasTopping ONLY (MozzarellaTopping OR TomatoTopping)
+    
+    <!--Descrição da classe SohoPizza–!>
+    NamedPizza
+    hasTopping SOME MozzarellaTopping
+    hasTopping SOME OliveTopping
+    hasTopping SOME ParmezanTopping
+    hasTopping SOME TomatoTopping
+    hasTopping ONLY (MozzarellaTopping OR OliveTopping OR ParmezanTopping OR TomatoTopping)
+*/
+primitiva   ::= nome_classe NOVALINHA cl_pri;
+
+//Verifica se há uma ou mais cláusulas (cada linha da definição)
+cl_pri      ::= linha_pri NOVALINHA cl_pri
+            | empty 
+;
+
+//Conteúdo de cada linha
+linha_pri   ::= HAS desc_pri
+            | IS desc_pri
+;
+
+//conteúdo após uma propriedade 'has' ou 'is'
+desc_pri    ::= SOME nome_classe
+            | ONLY ABREPAR final_pri FECHAPAR
+;
+
+//sequência de palavras separadas por OR que aparecem após o ONLY na desc_pri
+final_pri   ::= nome_classe r_pri;
+
+//usada para evitar recursão à esquerda 
+r_pri       ::= OR nome_classe r_pri
+            | empty
+;
+
+/*
+    classe enumerada exemplo
+    
+    <!--Descrição da classe Country, definida pelo conjunto de suas instâncias–!>
+    Country
+    {America, England, France, Germany, Italy}
+*/
+enumerada   ::= nome_classe NOVALINHA ABRECHAVE linha_enu FECHACHAVE;
+
+//Conteúdo da enumeração
+linha_enu   ::= nome_classe r_enu;
+
+//usada para evitar recursão à esquerda 
+r_enu       ::= VIRGULA nome_classe r_enu
+            | empty
+;
+//=============================================================================
+/*
+    classe coberta exemplo
+
+    <!--Descrição da classe SpicinessValuePartition, definida pela disjunção de suas classes filhas–!>
+    SpicinessValuePartition
+    Hot OR Medium OR Mild
+*/
+coberta     ::= nome_classe NOVALINHA linha_cob;
+
+//linha com as subclasses
+linha_cob   ::= nome_classe r_cob;
+
+//usada para evitar recursão à esquerda 
+r_cob       ::= OR nome_classe r_cob
+            | empty
+;
+//=============================================================================
+/* 
+    possíveis combinações para o nome de uma classe 
+*/
+nome_classe ::= CLASSE
+            | CLASSECOMP
+            | CLASSEUNDER
+;
+//=============================================================================
