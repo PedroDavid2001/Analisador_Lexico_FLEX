@@ -7,11 +7,11 @@
 public class sym {
   /* terminals */
   public static final int AND = 10;
-  public static final int IS = 24;
+  public static final int IS = 25;
   public static final int MENOR = 14;
   public static final int INT = 29;
   public static final int OR = 11;
-  public static final int HAS = 23;
+  public static final int HAS = 24;
   public static final int ALL = 3;
   public static final int ABREPAR = 17;
   public static final int NOVALINHA = 22;
@@ -24,7 +24,7 @@ public class sym {
   public static final int ABRECHAVE = 19;
   public static final int EOF = 0;
   public static final int THAT = 8;
-  public static final int NUMERO = 25;
+  public static final int NUMERO = 23;
   public static final int error = 1;
   public static final int MAIOR = 13;
   public static final int FECHACHAVE = 20;
@@ -61,9 +61,9 @@ public class sym {
   "FECHACHAVE",
   "VIRGULA",
   "NOVALINHA",
+  "NUMERO",
   "HAS",
   "IS",
-  "NUMERO",
   "CLASSE",
   "CLASSECOMP",
   "CLASSEUNDER",

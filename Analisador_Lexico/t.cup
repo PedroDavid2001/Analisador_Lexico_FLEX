@@ -1,8 +1,29 @@
 import java_cup.runtime.*;
+import javax.swing.JOptionPane;
+
+parser code {:
+
+     public parser (java.io.Reader input) {
+        super(new AnalisadoLexico(input));
+     }
+
+    public void syntax_error(Symbol cur_token){
+        System.out.println("va a ingresar el error sintactico "+ cur_token.value);
+        JOptionPane.showMessageDialog(null, "Debe de ingresar algun Texto", "ERROR", JOptionPane.ERROR_MESSAGE);
+    }
+    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
+        System.out.println("error  YA no se recupera");
+     }
+    public void semantic(Symbol cur_token,String n){
+        System.out.println("error semantico ");
+    }
+    public void semantic(String msg, Object obj) {
+    }
+:};
 
 terminal            SOME, ALL, VALUE, MIN, MAX, EXACTLY, THAT, NOT, AND, OR, ONLY; 
 terminal            MAIOR, MENOR, MAIORIG, MENORIG, ABREPAR, FECHAPAR, ABRECHAVE, FECHACHAVE, VIRGULA, NOVALINHA;
-terminal Integer    NUMERO;
+terminal String     NUMERO;
 terminal String     HAS, IS, CLASSE, CLASSECOMP, CLASSEUNDER, INT, FLOAT;
 
 non terminal definida, cl_def, desc_def, linha_def, fat_def, final_def,

@@ -8,7 +8,8 @@ public class Analisador {
            System.out.println("rodando");
 
            Reader reader = new FileReader("C:/Users/Felipe/Desktop/Compiler_with_JFLex_n_JCup/Analisador_Lexico/teste.txt");
-           parser p = new parser(new AnalisadoLexico(reader));
+
+           parser p = new parser(reader);
 
            System.out.println(p.parse().value);
        }catch (Exception e){

@@ -5,6 +5,8 @@ import java_cup.runtime.*;
 %class AnalisadoLexico
 %line
 %column
+%debug
+%unicode
 %cup
 %public
 
@@ -16,6 +18,44 @@ import java_cup.runtime.*;
     private Symbol symbol(int type, Object value) {
         return new Symbol(type, yyline, yycolumn, value);
     }
+
+
+       public AnalisadoLexico(ComplexSymbolFactory sf, java.io.InputStream is){
+    		this(is);
+            symbolFactory = sf;
+        }
+    	public AnalisadorLexico(ComplexSymbolFactory sf, java.io.Reader reader){
+    		this(reader);
+            symbolFactory = sf;
+        }
+
+        private StringBuffer sb;
+        private ComplexSymbolFactory symbolFactory;
+        private int csline,cscolumn;
+
+        public Symbol symbol(String name, int code){
+    		return symbolFactory.newSymbol(name, code,
+    						new Location(yyline+1,yycolumn+1, yychar), // -yylength()
+    						new Location(yyline+1,yycolumn+yylength(), yychar+yylength())
+    				);
+        }
+        public Symbol symbol(String name, int code, String lexem){
+    	return symbolFactory.newSymbol(name, code,
+    						new Location(yyline+1, yycolumn +1, yychar),
+    						new Location(yyline+1,yycolumn+yylength(), yychar+yylength()), lexem);
+        }
+
+        protected void emit_warning(String message){
+        	System.out.println("scanner warning: " + message + " at : 2 "+
+        			(yyline+1) + " " + (yycolumn+1) + " " + yychar);
+        }
+
+        protected void emit_error(String message){
+        	System.out.println("scanner error: " + message + " at : 2" +
+        			(yyline+1) + " " + (yycolumn+1) + " " + yychar);
+        }
+
+
 %}
 
 NovaLinha       = \r|\n|\r\n
@@ -61,18 +101,19 @@ float           = (float){Valor_Variavel}
     "{"                 { return symbol(sym.ABRECHAVE); }
     "}"                 { return symbol(sym.FECHACHAVE); }
     ","                 { return symbol(sym.VIRGULA); }
-    {EspacoBraco}       { return symbol(sym.VIRGULA); }
+    {EspacoBraco}       { return symbol(sym.NOVALINHA); }
 
     {has}               { return symbol(sym.HAS, new String(yytext())); }
     {is}                {  return symbol(sym.IS, new String(yytext())); }
-    {Numero}            { return symbol(sym.NUMERO, new Integer(yytext())); }
+    {Numero}            { return symbol(sym.NUMERO, new String(yytext())); }
     {ClasseComposta}    { return symbol(sym.CLASSECOMP, new String(yytext())); }
     {ClasseUnderline}   { return symbol(sym.CLASSEUNDER, new String(yytext())); }
     {Classe}            { return symbol(sym.CLASSE, new String(yytext())); }
     {integer}           { return symbol(sym.INT, new String(yytext())); }
     {float}             { return symbol(sym.FLOAT, new String(yytext())); }
-    
-    <<EOF>>             { return symbol(sym.NOVALINHA); }
+
+    "\n"                { return symbol(sym.NOVALINHA); }
+    <<EOF>>             { return symbol(sym.EOF); }
 
 }
 
