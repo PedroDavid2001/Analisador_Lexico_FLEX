@@ -1,61 +1,30 @@
-package cup.example;
-import java_cup.runtime.ComplexSymbolFactory;
-import java_cup.runtime.ComplexSymbolFactory.Location;
-import java_cup.runtime.Symbol;
-import java.lang.*;
-import java.io.InputStreamReader;
+import java_cup.runtime.*;
 
+/**
+    * This class is a simple example lexer.
+    */
 %%
 
-%class AnalisadoLexico
-%line
-%column
-%debug
+%class AnalisadorLexico
 %unicode
 %cup
-%public
+%line
+%column
 
 %{
+    StringBuffer string = new StringBuffer();
 
-    public AnalisadoLexico(ComplexSymbolFactory sf, java.io.InputStream is){
-        this(is);
-        symbolFactory = sf;
+    private Symbol symbol(int type) {
+        return new Symbol(type, yyline, yycolumn);
     }
-    public AnalisadorLexico(ComplexSymbolFactory sf, java.io.Reader reader){
-        this(reader);
-        symbolFactory = sf;
+    private Symbol symbol(int type, Object value) {
+        return new Symbol(type, yyline, yycolumn, value);
     }
-
-    private StringBuffer sb;
-    private ComplexSymbolFactory symbolFactory;
-    private int csline,cscolumn;
-
-    public Symbol symbol(String name, int code){
-        return symbolFactory.newSymbol(name, code,
-                        new Location(yyline+1,yycolumn+1, yychar), 
-                        new Location(yyline+1,yycolumn+yylength(), yychar+yylength())
-                );
-    }
-    public Symbol symbol(String name, int code, String lexem){
-    return symbolFactory.newSymbol(name, code,
-                        new Location(yyline+1, yycolumn +1, yychar),
-                        new Location(yyline+1,yycolumn+yylength(), yychar+yylength()), lexem);
-    }
-
-    protected void emit_warning(String message){
-        System.out.println("scanner warning: " + message + " at : 2 "+
-                (yyline+1) + " " + (yycolumn+1) + " " + yychar);
-    }
-
-    protected void emit_error(String message){
-        System.out.println("scanner error: " + message + " at : 2" +
-                (yyline+1) + " " + (yycolumn+1) + " " + yychar);
-    }
-
 %}
 
-NovaLinha       = \r|\n|\r\n
-EspacoBraco     = {NovaLinha} | [ \t\f]
+PulaLinha       = \r|\n|\r\n
+InputCharacter  = [^\r\n]
+EspacoBranco    = {PulaLinha} | [ \t\f]
 
 Letra           = [a-z]
 Letra_maiuscula = [A-Z]
@@ -77,40 +46,43 @@ float           = (float){Valor_Variavel}
 %%
 
 <YYINITIAL> {
-    "some"              { return symbol("SOME", sym.SOME); }
-    "all"               { return symbol("ALL", sym.ALL); }
-    "value"             { return symbol("VALUE", sym.VALUE); }
-    "min"               { return symbol("MIN", sym.MIN); }
-    "max"               { return symbol("MAX", sym.MAX); }
-    "exactly"           { return symbol("EXACTLY", sym.EXACTLY); }
-    "that"              { return symbol("THAT", sym.THAT); }
-    "not"               { return symbol("NOT", sym.NOT); }
-    "and"               { return symbol("AND", sym.AND); }
-    "or"                { return symbol("OR", sym.OR); }
-    "only"              { return symbol("ONLY", sym.ONLY); }
-    {Maior}             { return symbol("MAIOR", sym.MAIOR); }
-    {Menor}             { return symbol("MENOR", sym.MENOR); }
-    {Maior_ou_igual}    { return symbol("MAIORIG", sym.MAIORIG); }
-    {Menor_ou_igual}    { return symbol("MENORIG", sym.MENORIG); }
-    "("                 { return symbol("ABREPAR", sym.ABREPAR); }
-    ")"                 { return symbol("FECHAPAR", sym.FECHAPAR); }
-    "{"                 { return symbol("ABRECHAVE", sym.ABRECHAVE); }
-    "}"                 { return symbol("FECHACHAVE", sym.FECHACHAVE); }
-    ","                 { return symbol("VIRGULA", sym.VIRGULA); }
-    {EspacoBraco}       { return symbol("NOVALINHA", sym.NOVALINHA); }
+    "some"              { return symbol(sym.SOME); }
+    "all"               { return symbol(sym.ALL); }
+    "value"             { return symbol(sym.VALUE); }
+    "min"               { return symbol(sym.MIN); }
+    "max"               { return symbol(sym.MAX); }
+    "exactly"           { return symbol(sym.EXACTLY); }
+    "that"              { return symbol(sym.THAT); }
+    "not"               { return symbol(sym.NOT); }
+    "and"               { return symbol(sym.AND); }
+    "or"                { return symbol(sym.OR); }
+    "only"              { return symbol(sym.ONLY); }
+    {Maior}             { return symbol(sym.MAIOR); }
+    {Menor}             { return symbol(sym.MENOR); }
+    {Maior_ou_igual}    { return symbol(sym.MAIORIG); }
+    {Menor_ou_igual}    { return symbol(sym.MENORIG); }
+    "("                 { return symbol(sym.ABREPAR); }
+    ")"                 { return symbol(sym.FECHAPAR); }
+    "{"                 { return symbol(sym.ABRECHAVE); }
+    "}"                 { return symbol(sym.FECHACHAVE); }
+    ","                 { return symbol(sym.VIRGULA); }
+    {PulaLinha}         { return symbol(sym.NOVALINHA); }
 
-    {has}               { return symbol("HAS", sym.HAS, yytext()); }
-    {is}                { return symbol("IS", sym.IS, yytext()); }
-    {Numero}            { return symbol("NUMERO", sym.NUMERO, Integer.parseInt(yytext())); }
-    {ClasseComposta}    { return symbol("CLASSECOMP", sym.CLASSECOMP, yytext()); }
-    {ClasseUnderline}   { return symbol("CLASSEUNDER", sym.CLASSEUNDER, yytext()); }
-    {Classe}            { return symbol("CLASSE", sym.CLASSE, yytext()); }
-    {integer}           { return symbol("INT", sym.INT, yytext()); }
-    {float}             { return symbol("FLOAT", sym.FLOAT, yytext()); }
+    {EspacoBranco}      {  /*  */  }
 
-    <<EOF>>             { return symbol(sym.EOF); }
+    {Numero}            { return symbol(sym.NUMERO, new Integer(yytext())); }
+    
+    {has}               { return symbol(sym.HAS, yytext()); }
+    {is}                { return symbol(sym.IS, yytext()); }
+    {ClasseComposta}    { return symbol(sym.CLASSECOMP, yytext()); }
+    {ClasseUnderline}   { return symbol(sym.CLASSEUNDER, yytext()); }
+    {Classe}            { return symbol(sym.CLASSE, yytext()); }
+    {integer}           { return symbol(sym.INT, yytext()); }
+    {float}             { return symbol(sym.FLOAT, yytext()); }
 
 }
+
+<<EOF>>             { return symbol(sym.EOF); }
 
 /* Erro */
 [^] { throw new Error("Caractere inválido <"+yytext()+">"); }
