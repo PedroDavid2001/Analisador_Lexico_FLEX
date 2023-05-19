@@ -20,6 +20,7 @@ public class sym {
   public static final int CLASSEUNDER = 28;
   public static final int VIRGULA = 21;
   public static final int MENORIG = 16;
+  public static final int STRING_LITERAL = 31;
   public static final int FLOAT = 30;
   public static final int ABRECHAVE = 19;
   public static final int EOF = 0;
@@ -68,7 +69,8 @@ public class sym {
   "CLASSECOMP",
   "CLASSEUNDER",
   "INT",
-  "FLOAT"
+  "FLOAT",
+  "STRING_LITERAL"
   };
 }
 

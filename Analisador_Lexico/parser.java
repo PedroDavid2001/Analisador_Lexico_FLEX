@@ -135,22 +135,8 @@ public class parser extends java_cup.runtime.lr_parser {
 
 
 
-
-     public parser (java.io.Reader input) {
-        super(new AnalisadoLexico(input));
-     }
-
-    public void syntax_error(Symbol cur_token){
-        System.out.println("va a ingresar el error sintactico "+ cur_token.value);
-        JOptionPane.showMessageDialog(null, "Debe de ingresar algun Texto", "ERROR", JOptionPane.ERROR_MESSAGE);
-    }
-    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
-        System.out.println("error  YA no se recupera");
-     }
-    public void semantic(Symbol cur_token,String n){
-        System.out.println("error semantico ");
-    }
-    public void semantic(String msg, Object obj) {
+    public parser (java.io.Reader input) {
+        super(new AnalisadorLexico(input));
     }
 
 
