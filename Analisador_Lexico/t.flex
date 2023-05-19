@@ -1,6 +1,10 @@
 import java_cup.runtime.*;
+
 %%
+
 %class AnalisadoLexico
+%line
+%column
 %cup
 %public
 
@@ -14,6 +18,9 @@ import java_cup.runtime.*;
     }
 %}
 
+NovaLinha       = \r|\n|\r\n
+EspacoBraco     = {NovaLinha} | [ \t\f]
+
 Letra           = [a-z]
 Letra_maiuscula = [A-Z]
 Numero          = [0-9]+
@@ -23,7 +30,6 @@ Menor           = <
 Maior_ou_igual  = (>=)
 Menor_ou_igual  = (<=)
 Valor_Variavel  = \[ ({Maior}|{Menor}|({Maior_ou_igual}|{Menor_ou_igual}) \" ({Numero} | {NumeroFloat}) \") \] 
-NovaLinha       = ((\r) | (\n) | ((\r)(\n)))
 Classe          = {Letra_maiuscula}{Letra}+{Numero}*
 ClasseComposta  = {Classe}{Classe}+
 ClasseUnderline = {Classe}(_({Classe}|{Numero}))+
@@ -34,43 +40,41 @@ float           = (float){Valor_Variavel}
 
 %%
 
-LineTerminator = \r|\n|\r\n
-WhiteSpace     = {LineTerminator} | [ \t\f]
+<YYINITIAL> {
+    "some"              { return symbol(sym.SOME); }
+    "all"               { return symbol(sym.ALL); }
+    "value"             { return symbol(sym.VALUE); }
+    "min"               { return symbol(sym.MIN); }
+    "max"               { return symbol(sym.MAX); }
+    "exactly"           { return symbol(sym.EXACTLY); }
+    "that"              { return symbol(sym.THAT); }
+    "not"               { return symbol(sym.NOT); }
+    "and"               { return symbol(sym.AND); }
+    "or"                { return symbol(sym.OR); }
+    "only"              { return symbol(sym.ONLY); }
+    {Maior}             { return symbol(sym.MAIOR); }
+    {Menor}             { return symbol(sym.MENOR); }
+    {Maior_ou_igual}    { return symbol(sym.MAIORIG); }
+    {Menor_ou_igual}    { return symbol(sym.MENORIG); }
+    "("                 { return symbol(sym.ABREPAR); }
+    ")"                 { return symbol(sym.FECHAPAR); }
+    "{"                 { return symbol(sym.ABRECHAVE); }
+    "}"                 { return symbol(sym.FECHACHAVE); }
+    ","                 { return symbol(sym.VIRGULA); }
+    {EspacoBraco}       { return symbol(sym.VIRGULA); }
 
-"some" { return new Symbol(sym.SOME); }
-"all" { return new Symbol(sym.ALL); }
-"value" { return new Symbol(sym.VALUE); }
-"min" { return new Symbol(sym.MIN); }
-"max" { return new Symbol(sym.MAX); }
-"exactly" { return new Symbol(sym.EXACTLY); }
-"that" { return new Symbol(sym.THAT); }
-"not" { return new Symbol(sym.NOT); }
-"and" { return new Symbol(sym.AND); }
-"or" { return new Symbol(sym.OR); }
-"only" { return new Symbol(sym.ONLY); }
-{Maior} { return new Symbol(sym.MAIOR); }
-{Menor} { return new Symbol(sym.MENOR); }
-{Maior_ou_igual} { return new Symbol(sym.MAIORIG); }
-{Menor_ou_igual} { return new Symbol(sym.MENORIG); }
-"(" { return new Symbol(sym.ABREPAR); }
-")" { return new Symbol(sym.FECHAPAR); }
-"{" { return new Symbol(sym.ABRECHAVE); }
-"}" { return new Symbol(sym.FECHACHAVE); }
-"," { return new Symbol(sym.VIRGULA); }
-{has} { return new Symbol(sym.HAS, yyline, yycolumn, yytext()); }
-{is} { return new Symbol(sym.IS, yyline, yycolumn, yytext()); }
-{Numero} { 
-    int aux = Integer.parseInt(yytext());
-    return new Symbol(sym.NUMERO, yyline, yycolumn, aux);
+    {has}               { return symbol(sym.HAS, new String(yytext())); }
+    {is}                {  return symbol(sym.IS, new String(yytext())); }
+    {Numero}            { return symbol(sym.NUMERO, new Integer(yytext())); }
+    {ClasseComposta}    { return symbol(sym.CLASSECOMP, new String(yytext())); }
+    {ClasseUnderline}   { return symbol(sym.CLASSEUNDER, new String(yytext())); }
+    {Classe}            { return symbol(sym.CLASSE, new String(yytext())); }
+    {integer}           { return symbol(sym.INT, new String(yytext())); }
+    {float}             { return symbol(sym.FLOAT, new String(yytext())); }
+    
+    <<EOF>>             { return symbol(sym.NOVALINHA); }
+
 }
-{ClasseComposta} { return new Symbol(sym.CLASSECOMP, yyline, yycolumn, yytext()); }
-{ClasseUnderline} { return new Symbol(sym.CLASSEUNDER, yyline, yycolumn, yytext()); }
-{Classe} { return new Symbol(sym.CLASSE, yyline, yycolumn, yytext()); }
-{integer} { return new Symbol(sym.INT, yyline, yycolumn, yytext()); }
-{float} { return new Symbol(sym.FLOAT, yyline, yycolumn, yytext()); }
-{NovaLinha} { return new Symbol(sym.NOVALINHA); }
-[\t\r\f] {}
-[\n] {}
-” ” {}
 
-[^] { throw new Error("Illegal character <"+yytext()+">"); }
+/* Erro */
+[^] { throw new Error("Caractere inválido <"+yytext()+">"); }

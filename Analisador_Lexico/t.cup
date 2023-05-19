@@ -1,10 +1,11 @@
 import java_cup.runtime.*;
 
-terminal SOME, ALL, VALUE, MIN, MAX, EXACTLY, THAT, NOT, AND, OR, ONLY, MAIOR,
-    MENOR, MAIORIG, MENORIG, ABREPAR, FECHAPAR, ABRECHAVE, FECHACHAVE, VIRGULA,
-    NOVALINHA, HAS, IS, NUMERO, CLASSE, CLASSECOMP, CLASSEUNDER, INT, FLOAT;
+terminal            SOME, ALL, VALUE, MIN, MAX, EXACTLY, THAT, NOT, AND, OR, ONLY; 
+terminal            MAIOR, MENOR, MAIORIG, MENORIG, ABREPAR, FECHAPAR, ABRECHAVE, FECHACHAVE, VIRGULA, NOVALINHA;
+terminal Integer    NUMERO;
+terminal String     HAS, IS, CLASSE, CLASSECOMP, CLASSEUNDER, INT, FLOAT;
 
-non terminal String definida, cl_def, desc_def, linha_def, fat_def, final_def,
+non terminal definida, cl_def, desc_def, linha_def, fat_def, final_def,
     primitiva, cl_pri, linha_pri, desc_pri, final_pri, r_pri, enumerada,
     linha_enu, r_enu, coberta, linha_cob, r_cob, nome_classe;
 
