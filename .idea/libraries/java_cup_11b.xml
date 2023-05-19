@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="java-cup-11b">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Analisador_Lexico/java-cup-11b.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ideaLibSources/java-cup-11b-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
