@@ -8,8 +8,13 @@ import java_cup.runtime.*;
 %class AnalisadorLexico
 %unicode
 %cup
+<<<<<<< HEAD
 %debug
 %line
+=======
+%line
+%column
+>>>>>>> 345e668b9f6646cf6e8236ac574374bf9246096b
 
 %{
     StringBuffer string = new StringBuffer();
@@ -66,12 +71,21 @@ float           = (float){Valor_Variavel}
     "{"                 { return symbol(sym.ABRECHAVE); }
     "}"                 { return symbol(sym.FECHACHAVE); }
     ","                 { return symbol(sym.VIRGULA); }
+<<<<<<< HEAD
     " "                 {/* */}
 
     {EspacoBranco}      { return symbol(sym.NOVALINHA); }
 
     {Numero}            { return symbol(sym.NUMERO, Integer.valueOf(yytext())); }
 
+=======
+    {PulaLinha}         { return symbol(sym.NOVALINHA); }
+
+    {EspacoBranco}      {  /*  */  }
+
+    {Numero}            { return symbol(sym.NUMERO, new Integer(yytext())); }
+    
+>>>>>>> 345e668b9f6646cf6e8236ac574374bf9246096b
     {has}               { return symbol(sym.HAS, yytext()); }
     {is}                { return symbol(sym.IS, yytext()); }
     {ClasseComposta}    { return symbol(sym.CLASSECOMP, yytext()); }
@@ -81,6 +95,8 @@ float           = (float){Valor_Variavel}
     {float}             { return symbol(sym.FLOAT, yytext()); }
 
 }
+
+<<EOF>>             { return symbol(sym.EOF); }
 
 /* Erro */
 . { throw new Error("Caractere inválido <"+yytext()+">"); }
