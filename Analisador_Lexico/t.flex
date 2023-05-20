@@ -8,10 +8,8 @@ import java_cup.runtime.*;
 %class AnalisadorLexico
 %unicode
 %cup
-%line
 %debug
-%column
-%state STRING
+%line
 
 %{
     StringBuffer string = new StringBuffer();
@@ -36,7 +34,7 @@ Maior           = >
 Menor           = <
 Maior_ou_igual  = (>=)
 Menor_ou_igual  = (<=)
-Valor_Variavel  = \[ ({Maior}|{Menor}|({Maior_ou_igual}|{Menor_ou_igual}) \" ({Numero} | {NumeroFloat}) \") \] 
+Valor_Variavel  = \[ ({Maior}|{Menor}|({Maior_ou_igual}|{Menor_ou_igual}) \" ({Numero} | {NumeroFloat}) \") \]
 Classe          = {Letra_maiuscula}{Letra}+{Numero}*
 ClasseComposta  = {Classe}{Classe}+
 ClasseUnderline = {Classe}(_({Classe}|{Numero}))+
@@ -44,6 +42,7 @@ has             = (has)({Classe}|{ClasseComposta}|{ClasseUnderline})
 is              = (is)({Classe}|{ClasseComposta}|{ClasseUnderline})(Of)
 integer         = (integer){Valor_Variavel}
 float           = (float){Valor_Variavel}
+
 %%
 
 <YYINITIAL> {
@@ -67,12 +66,12 @@ float           = (float){Valor_Variavel}
     "{"                 { return symbol(sym.ABRECHAVE); }
     "}"                 { return symbol(sym.FECHACHAVE); }
     ","                 { return symbol(sym.VIRGULA); }
-    {EspacoBranco}         { return symbol(sym.NOVALINHA); }
+    " "                 {/* */}
 
-    //{EspacoBranco}      {  /*  */  }
+    {EspacoBranco}      { return symbol(sym.NOVALINHA); }
 
-    {Numero}            { return symbol(sym.NUMERO,Integer.valueOf(yytext())); }
-    
+    {Numero}            { return symbol(sym.NUMERO, Integer.valueOf(yytext())); }
+
     {has}               { return symbol(sym.HAS, yytext()); }
     {is}                { return symbol(sym.IS, yytext()); }
     {ClasseComposta}    { return symbol(sym.CLASSECOMP, yytext()); }
@@ -83,18 +82,5 @@ float           = (float){Valor_Variavel}
 
 }
 
-<STRING> {
-      \"                             { yybegin(YYINITIAL);
-                                       return symbol(sym.STRING_LITERAL,
-                                       string.toString()); }
-      [^\n\r\"\\]+                   { string.append( yytext() ); }
-      \\t                            { string.append('\t'); }
-      \\n                            { string.append('\n'); }
-
-      \\r                            { string.append('\r'); }
-      \\\"                           { string.append('\"'); }
-      \\                             { string.append('\\'); }
-    }
-
 /* Erro */
-[^] { throw new Error("Caractere inválido <"+yytext()+">"); }
+. { throw new Error("Caractere inválido <"+yytext()+">"); }

@@ -14,14 +14,26 @@ terminal String     HAS, IS, CLASSE, CLASSECOMP, CLASSEUNDER, INT, FLOAT, STRING
 
 non terminal definida, cl_def, desc_def, linha_def, fat_def, final_def,
     primitiva, cl_pri, linha_pri, desc_pri, final_pri, r_pri, enumerada,
-    linha_enu, r_enu, coberta, linha_cob, r_cob, nome_classe;
+    linha_enu, r_enu, coberta, linha_cob, r_cob, nome_classe, inicial, segunda, terceira, quarta;
 
 
-definida    ::= nome_classe NOVALINHA cl_def;
+start with inicial;
 
-cl_def      ::= linha_def NOVALINHA cl_def
-            | /* Empty */
+inicial     ::= definida
+            | segunda
 ;
+
+segunda     ::= coberta
+             | terceira
+;
+
+terceira   ::= primitiva
+            | quarta
+;
+
+quarta     ::= enumerada;
+
+definida    ::= nome_classe NOVALINHA linha_def ;
 
 linha_def   ::= AND ABREPAR fat_def;
 

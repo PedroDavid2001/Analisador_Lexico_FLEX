@@ -1,5 +1,2 @@
-NamedPizza
-hasTopping some MozzarellaTopping
-hasTopping some PepperoniTopping
-hasTopping some TomatoTopping
-hasTopping only (MozzarellaTopping or PepperoniTopping or TomatoTopping)
+Pizza
+Hot or Medium or Mild
